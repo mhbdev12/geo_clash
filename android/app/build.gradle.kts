@@ -16,7 +16,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.hamza.geoclash"
-    compileSdk = 37 // 👈 Updated to compile SDK 37
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -49,7 +49,6 @@ android {
             // 🔐 Sign release build using our official keystore
             signingConfig = signingConfigs.getByName("release")
 
-            // Disabled to prevent R8 reflection crashes and AAB symbol issues
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(
@@ -64,12 +63,19 @@ android {
     }
 }
 
+// Disable native symbol stripping task on Windows to prevent build failures
+tasks.whenTaskAdded {
+    if (name.contains("Strip") && name.contains("DebugSymbol")) {
+        enabled = false
+    }
+}
+
 kotlin {
     compilerOptions {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
     }
 }
-    .
+
 flutter {
     source = "../.."
 }
