@@ -9,7 +9,7 @@ class NotificationService {
   NotificationService._internal();
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin();
 
   bool _isInitialized = false;
 
@@ -19,10 +19,10 @@ class NotificationService {
       tz.initializeTimeZones();
 
       const AndroidInitializationSettings initializationSettingsAndroid =
-          AndroidInitializationSettings('@mipmap/ic_launcher');
+      AndroidInitializationSettings('@mipmap/ic_launcher');
 
       const InitializationSettings initializationSettings =
-          InitializationSettings(android: initializationSettingsAndroid);
+      InitializationSettings(android: initializationSettingsAndroid);
 
       await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
@@ -40,7 +40,7 @@ class NotificationService {
     try {
       final androidPlugin = flutterLocalNotificationsPlugin
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>();
+          AndroidFlutterLocalNotificationsPlugin>();
       if (androidPlugin != null) {
         await androidPlugin.requestNotificationsPermission();
       }
@@ -61,14 +61,14 @@ class NotificationService {
       await scheduleGeoClashReminder(
         id: 101,
         title: "🌍 Geo Clash Challenge Waiting!",
-        body: "Test your flag & capital knowledge! Can you set a new high score today? 🎯",
+        body: "Test your flag & capital knowledge! Can you set a new high score today? 🏆",
         hoursFromNow: 24,
       );
 
       // 2-Day Reminder (48 Hours after last active session)
       await scheduleGeoClashReminder(
         id: 102,
-        title: "🏆 Don't lose your streak!",
+        title: "🔥 Don't lose your streak!",
         body: "Your geography skills miss you! Jump back in and master new maps now! 🗺️",
         hoursFromNow: 48,
       );
@@ -102,7 +102,7 @@ class NotificationService {
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
+      UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 }

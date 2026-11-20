@@ -182,9 +182,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   setState(() {
                     GameSettings.playerName = input;
                   });
+                  Navigator.pop(context);
                   await _savePlayerNamePreference(input);
+                } else {
+                  Navigator.pop(context);
                 }
-                Navigator.pop(context);
               },
               child: const Text('SAVE NAME', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
             ),

@@ -402,31 +402,11 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
     });
   }
 
-  // 📳 Helper function to trigger shake and check for system vibration settings
-  void _triggerShakeAndHaptics() async {
+  // 📳 Helper function to trigger shake and haptics safely
+  void _triggerShakeAndHaptics() {
     if (GameSettings.enableShake) {
-      // 1. Visual shake always runs
       _shakeController.forward(from: 0.0);
-
-      // 2. Perform safe system haptic call
-      try {
-        await HapticFeedback.vibrate();
-      } catch (_) {
-        // Safe catch if device doesn't support vibration hardware
-      }
-
-      // 3. Notify user if system vibration feedback is turned off globally
-      if (mounted) {
-        bool? isHapticEnabled = await SystemChannels.platform.invokeMethod<bool>('HapticFeedback.vibrate');
-        if (isHapticEnabled == false) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('💡 Vibration is turned off in your phone settings.'),
-              duration: Duration(seconds: 2),
-            ),
-          );
-        }
-      }
+      HapticFeedback.heavyImpact();
     }
   }
 
@@ -478,7 +458,7 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
 
         AudioManager.playSfx('wrong');
 
-        // 📳 Executes screen shake and safe haptic check
+        // 📳 Executes screen shake and safe haptic feedback
         _triggerShakeAndHaptics();
 
         if (widget.isTwoPlayer) {

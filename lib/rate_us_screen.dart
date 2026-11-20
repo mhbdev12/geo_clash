@@ -33,8 +33,7 @@ class _RateUsScreenState extends State<RateUsScreen> {
 
   // 🚀 Open Google Play Store for Rating
   Future<void> _openPlayStore() async {
-    // Replace with your actual app package name prior to launch
-    const String packageName = 'com.geoclash.app';
+    const String packageName = 'com.hamza.geoclash';
     final Uri playStoreUri = Uri.parse('https://play.google.com/store/apps/details?id=$packageName');
     final Uri marketUri = Uri.parse('market://details?id=$packageName');
 
@@ -241,7 +240,6 @@ class _RateUsScreenState extends State<RateUsScreen> {
                       // Category Dropdown
                       DropdownButtonFormField<String>(
                         initialValue: _selectedCategory,
-                        // ...
                         dropdownColor: theme.cardBg,
                         style: TextStyle(color: theme.text, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
